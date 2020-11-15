@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Step 2:</h1>
+    <h1>Step 3:</h1>
     <code v-html="stepOneRange(dummySecuence)" />
   </div>
 </template>
@@ -16,6 +16,13 @@ export default {
   },
   methods: {
     stepOneRange(secuence){
+      let accumulator = {
+        fizz: 0,
+        buzz: 0,
+        fizzbuzz: 0,
+        lucky: 0,
+        integer: 0,
+      };
       let result = secuence.map((element) => {
         let item = element + 1; 
         
@@ -25,22 +32,27 @@ export default {
         let isMultipleOfFifteen = item % 15 == 0;
 
         if(hasThree){
+          accumulator.lucky++;
           return "lucky";
         }
         else if(isMultipleOfFifteen){
+          accumulator.fizzbuzz++;
           return "fizzbuzz";
         }
         else if(isMultipleOfFive){
+          accumulator.buzz++;
           return "buzz";
         }
         else if(isMultipleOfThree){
+          accumulator.fizz++;
           return "fizz";
         } else {
+          accumulator.integer++;
           return item;
         }
       });
 
-      return result.join(' ');
+      return `${result.join(' ')}\nfizz: ${accumulator.fizz}\nbuzz: ${accumulator.buzz}\nfizzbuzz: ${accumulator.fizzbuzz}\nlucky: ${accumulator.lucky}\ninteger: ${accumulator.integer}`;
     }
   },
 }
@@ -70,8 +82,7 @@ h1 {
 }
 
 code {
-  padding: 1rem 2rem;
-  background: #393c46;
+  white-space: pre;
   border-radius: 5px;
   margin: 1rem 0 3rem;
 }
